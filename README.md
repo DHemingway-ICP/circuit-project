@@ -1,5 +1,6 @@
 # circuit-project
 Dead man's switch suite of projects
+
 🔒 Future Integration: vetKeys Support
 
 Circuit’s architecture is designed for long-term compatibility with upcoming cryptographic standards on the Internet Computer. While the current system uses client-side encryption and canister-based timers to power its autonomous “dead man’s switch” logic, its modular key management layer is structured to seamlessly adopt vetKeys once available.
