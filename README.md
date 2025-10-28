@@ -70,3 +70,9 @@ DFINITY Research Paper: Verifiable Threshold Encryption (PDF)
  — foundational cryptographic concepts behind vetKeys.
 
 Circuit is engineered to evolve alongside the Internet Computer’s cryptographic roadmap — ensuring that as the ecosystem advances, user trust, transparency, and autonomy remain at its core.
+
+🧠 ICP Cryptography Alignment
+
+Circuit’s design directly aligns with the Internet Computer’s core principles of decentralized automation, verifiable computation, and trustless continuity. Each app—PingMe, Failsafe, GuardianKey, and LifeCheck—demonstrates how autonomous canisters and certified data can perform real-world tasks securely without off-chain infrastructure.
+
+By using timed canister triggers, Internet Identity authentication, and certified asset delivery, Circuit embodies the Internet Computer’s vision of end-to-end decentralization. Future adoption of vetKeys and threshold cryptography will further extend this trust model, enabling verifiable, multi-party control over encrypted data and access logic. In doing so, Circuit showcases how personal accountability, data continuity, and digital legacy management can operate entirely within a self-sovereign Internet ecosystem.
