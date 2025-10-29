@@ -1,0 +1,19 @@
+# 🧑‍💻 Circuit Developer Guide
+### Architecture • Integration • Standards • Contribution
+
+---
+
+## ⚙️ Overview
+Circuit is a decentralized suite of autonomous Internet Computer (ICP) applications unified through a parent dashboard, **Circuit Hub**.  
+Each app operates independently but follows a shared structure, design system, and API interface to provide seamless integration.
+
+**Core Principles**
+- Privacy-first, user-owned data  
+- Modular design with shared schemas  
+- Transparency and verifiability through blockchain logic  
+- Minimal dependencies for ease of deployment  
+
+---
+
+## 🧱 Project Structure
+
