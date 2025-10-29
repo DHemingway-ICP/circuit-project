@@ -17,3 +17,161 @@ Each app operates independently but follows a shared structure, design system, a
 
 ## 🧱 Project Structure
 
+/circuit-hub
+├── /src
+│ ├── /components # Shared UI components
+│ ├── /routes
+│ │ ├── index.tsx # Marketing homepage
+│ │ ├── admin.tsx # Control Hub dashboard
+│ │ ├── shield.tsx # Shield app landing
+│ │ └── roadmap.tsx # Interactive roadmap
+│ ├── /lib # Utils, hooks, schemas
+│ ├── /api # API connectors for all apps
+│ └── /styles # Design system (Slate + Teal)
+├── /docs
+│ ├── README.md
+│ ├── ROADMAP.md
+│ └── DEVELOPER_GUIDE.md
+├── dfx.json # ICP canister config
+├── package.json # Dependencies
+└── sns_config.json # SNS DAO setup (Shield)
+
+
+---
+
+## 🧩 App Architecture
+Each Circuit app runs as a standalone project (or canister), exposing a shared API endpoint and a `get_metrics()` method to report activity to the Circuit Hub.
+
+**App Examples**
+- **PingMe** → Habit and accountability tracking  
+- **Failsafe** → Encrypted data continuity  
+- **GuardianKey** → Shared credential management  
+- **LifeCheck** → Digital legacy automation  
+- **Shield** → Privacy token + governance DAO  
+
+---
+
+## 🔗 Integration Schema
+
+### `get_metrics()` Standard
+Every app must expose a public `get_metrics()` function returning a structured JSON payload compatible with the Hub dashboard.
+
+**Example Schema**
+```json
+{
+  "app": "PingMe",
+  "version": "1.0.0",
+  "metrics": {
+    "active_users": 182,
+    "triggers_today": 920,
+    "uptime": "99.8%",
+    "status": "operational"
+  },
+  "last_updated": "2025-10-28T14:00:00Z"
+}
+
+Notes
+All timestamps use ISO 8601 (UTC).
+Metrics are cached client-side and refreshed every 30–60s.
+Errors must return { "status": "error", "message": "string" } (HTTP 200).
+
+🌐 Communication & Webhooks
+Inbound Webhook Endpoint (Hub)
+
+Each app may push real-time events to Circuit Hub using a unified endpoint:
+POST /api/ingest
+
+Payload Example
+{
+  "app_id": "shield",
+  "event_type": "proposal_created",
+  "timestamp": "2025-10-29T12:45:00Z",
+  "props": {
+    "proposal_id": 14,
+    "title": "Add zk-Proof Verifier"
+  }
+}
+
+Hub Actions
+Deduplicate events via Idempotency-Key
+Log all events for analytics
+Trigger visual updates in /admin dashboard
+
+🧠 Governance Integration (Shield DAO)
+
+Shield manages governance, treasury, and DAO operations.
+It connects to the Hub via:
+
+get_proposals()
+
+get_treasury_metrics()
+
+create_proposal()
+
+vote_on_proposal()
+
+Future SNS compatibility allows the entire governance system to migrate to ICP’s decentralized SNS framework.
+
+🎨 Design System
+
+Primary Color: Deep Slate #1E1E2F
+
+Accent Color: Teal Glow #3FE0C5
+
+Font: Inter / DM Sans
+
+Radius: 16px
+
+UI Theme: Card-based grid, soft shadows, animated transitions
+
+All new apps should inherit this palette and typography for visual consistency.
+
+🧩 Adding a New App
+
+To onboard a new app into Circuit:
+
+Ensure it follows the get_metrics() schema.
+
+Add API connector in /src/api/[app].ts.
+
+Create a card in /routes/admin.tsx → app grid.
+
+Add marketing tile to /routes/index.tsx.
+
+Register webhook endpoint (if needed).
+
+Update /docs/ROADMAP.md with app name and description.
+
+
+📦 Deployment
+Local
+dfx start --background
+dfx deploy
+npm run dev
+
+Production
+dfx deploy --network ic
+npm run build
+npm run export
+
+Environment Variables
+DFINITY_NETWORK=ic
+SHIELD_CANISTER_ID=
+CIRCUIT_API_URL=
+NEXT_PUBLIC_ENV=production
+
+🧩 Contribution Workflow
+
+Branch Naming: feature/app-name, fix/ui, or docs/update.
+
+Commit Format:
+[scope]: short description
+e.g. shield: add treasury metrics endpoint
+
+Pull Requests:
+Include short summary
+
+Link related issue or roadmap item
+
+Tag reviewers (@circuit-devs)
+
